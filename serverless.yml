@@ -11,10 +11,6 @@ provider:
  stage: dev
  region: ap-southeast-1
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
 functions:
   hello:
     handler: handler.hello
