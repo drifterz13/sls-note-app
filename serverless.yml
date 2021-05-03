@@ -16,8 +16,8 @@ provider:
 
 custom:
   mongo:
-    username: ${ssm:/mongodb_username}
-    password: ${ssm:/mongodb_password}
+    username: ${ssm:/mongodb_username~true}
+    password: ${ssm:/mongodb_password~true}
 
 functions:
   hello:
