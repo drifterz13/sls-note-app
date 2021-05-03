@@ -2,9 +2,14 @@ name: Deploy main branch
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
+  env-check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Run on branch" + ${{ github.ref }}
+
   deploy:
     name: deploy
     runs-on: ubuntu-latest
