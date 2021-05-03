@@ -15,7 +15,7 @@ jobs:
       - name: Get deploy stage
         id: get_deploy_stage
         run: |
-          if [$REF == 'refs/heads/main']
+          if [ $REF == "refs/heads/main" ]
           then
               echo "Going to deploy to prod"
               echo "::set-output name=DEPLOY_STAGE::prod"
