@@ -10,6 +10,9 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ap-southeast-1
 
+  environment:
+    MONGODB_USERNAME: ${ssm:/mongodb_username~true}
+
 functions:
   hello:
     handler: handler.hello
