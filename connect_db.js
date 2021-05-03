@@ -5,7 +5,7 @@ const MONGODB_URI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env
 // Once we connect to the database once, we'll store that connection and reuse it so that we don't have to connect to the database on every request.
 let cachedDb = null;
 
-export async function connectToDatabase() {
+module.exports.connectToDatabase = async () => {
   if (cachedDb) {
     return cachedDb;
   }
@@ -16,4 +16,4 @@ export async function connectToDatabase() {
   cachedDb = db;
 
   return db;
-}
+};
