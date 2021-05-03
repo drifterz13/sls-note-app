@@ -2,5 +2,8 @@
   "name": "sls-note-app",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-offline": "^7.0.0"
+  }
 }

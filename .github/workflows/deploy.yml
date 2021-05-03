@@ -1,8 +1,8 @@
-name: Deploy main branch
+name: Deploy lambda
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   deploy:
@@ -12,6 +12,20 @@ jobs:
       matrix:
         node-version: [14.x]
     steps:
+      - name: Get deploy stage
+        id: get_deploy_stage
+        run: |
+          if [$REF == 'refs/heads/main']
+          then
+              echo "Going to deploy to prod"
+              echo "::set-output name=DEPLOY_STAGE::prod"
+          else
+              echo "Going to deploy to dev"
+              echo "::set-output name=DEPLOY_STAGE::dev"
+          fi
+        env:
+          REF: ${{ github.ref }}
+
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -29,10 +43,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Install dependencies
+        run: yarn install
+
       - name: serverless deploy
         uses: serverless/github-action@master
         with:
-          args: deploy
+          args: deploy --stage ${{ steps.get_deploy_stage.outputs.DEPLOY_STAGE }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
