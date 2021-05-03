@@ -6,14 +6,16 @@ on:
 
 jobs:
   env-check:
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
-    steps:
-      - run: echo "Going to deploy to production stage"
-    if: ${{ github.ref == 'refs/heads/dev' }}
-    steps:
-      - run: echo "Going to deploy to dev stage"
-
+    run: |
+      if [$REF == 'refs/head/main']
+      then
+        echo "Going to deploy to prod env"
+      else
+        echo "Going to deploy to dev env"
+      fi
+    env:
+      REF: ${{ gitub.ref }}
+    
   # deploy:
   #   name: deploy
   #   runs-on: ubuntu-latest
