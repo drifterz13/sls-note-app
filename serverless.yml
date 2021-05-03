@@ -11,7 +11,7 @@ provider:
   region: ap-southeast-1
 
   environment:
-    MONGODB_USERNAME: ${self.custom.mongo.username}
+    MONGODB_USERNAME: ${self:custom.mongo.username}
 
 custom:
   mongo:
