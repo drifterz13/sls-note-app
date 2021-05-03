@@ -22,9 +22,10 @@ module.exports.getNotes = async (event, context, callback) => {
   // Get an instance of our database
   const db = await connectToDatabase();
   const notes = await db.collection("notes").find({});
+  console.log('notes', notes)
 
   callback(null, {
     statusCode: 200,
-    data: { notes },
+    data: JSON.stringify(notes),
   });
 };
