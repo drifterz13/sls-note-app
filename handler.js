@@ -1,4 +1,5 @@
 const { connectToDatabase } = require("./connect_db");
+const { NoteModel } = require("./model");
 
 module.exports.hello = async (event, context, callback) => {
   const response = {
@@ -20,12 +21,12 @@ module.exports.getNotes = async (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   // Get an instance of our database
-  const db = await connectToDatabase();
-  const notes = await db.collection("notes").find({});
-  console.log('notes', notes)
+  await connectToDatabase();
+  const notes = await NoteModel.find();
+  console.log("notes", notes);
 
   callback(null, {
     statusCode: 200,
-    data: JSON.stringify(notes),
+    body: JSON.stringify(notes),
   });
 };
