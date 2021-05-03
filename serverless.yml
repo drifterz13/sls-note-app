@@ -12,10 +12,12 @@ provider:
 
   environment:
     MONGODB_USERNAME: ${self:custom.mongo.username}
+    MONGODB_PASSWORD: ${self:custom.mongo.password}
 
 custom:
   mongo:
-    username: ${ssm:/mongodb_username~true}
+    username: ${ssm:/mongodb_username}
+    password: ${ssm:/mongodb_password}
 
 functions:
   hello:
@@ -23,6 +25,12 @@ functions:
     events:
       - http:
           path: /hello
+          method: get
+  getNotes:
+    handler: handler.getNotes
+    events:
+      - http:
+          path: /notes
           method: get
 
 plugins:

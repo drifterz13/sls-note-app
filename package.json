@@ -5,5 +5,8 @@
   "license": "MIT",
   "devDependencies": {
     "serverless-offline": "^7.0.0"
+  },
+  "dependencies": {
+    "mongodb": "^3.6.6"
   }
 }
