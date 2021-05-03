@@ -1,0 +1,20 @@
+service: sls-note-app
+app: sls-note-app
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+ stage: dev
+ region: ap-southeast-1
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+functions:
+  hello:
+    handler: handler.hello
