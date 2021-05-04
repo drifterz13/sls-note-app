@@ -7,6 +7,7 @@ let cachedDb = null;
 
 module.exports.connectToDatabase = async () => {
   if (cachedDb) {
+    console.log('DB is cached.')
     return cachedDb;
   }
   // Connect to our MongoDB database hosted on MongoDB Atlas

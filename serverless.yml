@@ -2,6 +2,8 @@ service: sls-note-app
 app: sls-note-app
 
 frameworkVersion: "2"
+useDotenv: false
+variablesResolutionMode: 20210326 # for dropping ssm suffix (~true)
 
 provider:
   name: aws
@@ -16,8 +18,8 @@ provider:
 
 custom:
   mongo:
-    username: ${ssm:/mongodb_username~true}
-    password: ${ssm:/mongodb_password~true}
+    username: ${ssm:/mongodb_username}
+    password: ${ssm:/mongodb_password}
 
 functions:
   hello:
@@ -32,6 +34,12 @@ functions:
       - http:
           path: /notes
           method: get
+  createNote:
+    handler: handler.createNote
+    events:
+      - http:
+          path: /note
+          method: post
 
 plugins:
   - serverless-offline

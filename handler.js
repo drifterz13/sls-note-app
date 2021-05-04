@@ -20,7 +20,6 @@ module.exports.getNotes = async (event, context, callback) => {
   next invoked, if AWS Lambda chooses to use the frozen process. */
   context.callbackWaitsForEmptyEventLoop = false;
 
-  // Get an instance of our database
   await connectToDatabase();
   const notes = await NoteModel.find();
   console.log("notes", notes);
@@ -28,5 +27,19 @@ module.exports.getNotes = async (event, context, callback) => {
   callback(null, {
     statusCode: 200,
     body: JSON.stringify(notes),
+  });
+};
+
+module.exports.createNote = async (event, context, callback) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+  const { title, completed } = JSON.parse(event.body);
+
+
+  await connectToDatabase();
+  const note = await NoteModel.create({ title, completed });
+
+  callback(null, {
+    statusCode: 200,
+    body: JSON.stringify(note),
   });
 };
