@@ -4,7 +4,7 @@ import NoteModel from "./model";
 export async function hello(event, context, callback) {
   const response = {
     statusCode: 200,
-    body: `Hello world 1! 🍺🍺🍺 ${process.env.MONGODB_USERNAME}`,
+    body: `Hello world! 🍺🍺 ${process.env.MONGODB_USERNAME}`,
   };
 
   callback(null, response);
