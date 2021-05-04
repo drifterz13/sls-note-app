@@ -1,16 +1,16 @@
-const { connectToDatabase } = require("./connect_db");
-const { NoteModel } = require("./model");
+import { connectToDatabase } from "./connect_db";
+import NoteModel from "./model";
 
-module.exports.hello = async (event, context, callback) => {
+export async function hello(event, context, callback) {
   const response = {
     statusCode: 200,
     body: `Hello world! 🍺🍺🍺 ${process.env.MONGODB_USERNAME}`,
   };
 
   callback(null, response);
-};
+}
 
-module.exports.getNotes = async (event, context, callback) => {
+export async function getNotes(event, context, callback) {
   /* By default, the callback waits until the runtime event loop is empty before 
   freezing the process and returning the results to the caller. 
   Setting this property to false requests that AWS Lambda freeze the process soon 
@@ -22,18 +22,16 @@ module.exports.getNotes = async (event, context, callback) => {
 
   await connectToDatabase();
   const notes = await NoteModel.find();
-  console.log("notes", notes);
 
   callback(null, {
     statusCode: 200,
     body: JSON.stringify(notes),
   });
-};
+}
 
-module.exports.createNote = async (event, context, callback) => {
+export async function createNote(event, context, callback) {
   context.callbackWaitsForEmptyEventLoop = false;
   const { title, completed } = JSON.parse(event.body);
-
 
   await connectToDatabase();
   const note = await NoteModel.create({ title, completed });
@@ -42,4 +40,4 @@ module.exports.createNote = async (event, context, callback) => {
     statusCode: 200,
     body: JSON.stringify(note),
   });
-};
+}

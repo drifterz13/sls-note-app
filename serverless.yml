@@ -5,6 +5,10 @@ frameworkVersion: "2"
 useDotenv: false
 variablesResolutionMode: 20210326 # for dropping ssm suffix (~true)
 
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -40,6 +44,3 @@ functions:
       - http:
           path: /note
           method: post
-
-plugins:
-  - serverless-offline
